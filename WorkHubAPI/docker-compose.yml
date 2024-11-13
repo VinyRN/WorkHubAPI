@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: TaskManagement
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  workhubapi:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - database
+volumes:
+  postgres_data:
